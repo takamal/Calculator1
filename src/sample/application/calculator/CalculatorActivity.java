@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 public class CalculatorActivity extends Activity {
 
@@ -31,6 +32,7 @@ public class CalculatorActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);//アクティビティかリュキュレーターのインスタンスの生成。
+        readPreferences();
     }
 
     @Override
@@ -191,7 +193,30 @@ public class CalculatorActivity extends Activity {
 		sInt = Integer.toString(num1 + num2);
 		tV.setText(sInt);
 		
-    }    
+    }
 
+    public void writePreferences(){
+    	SharedPreferences prefs = getSharedPreferences("CalcPrefs", MODE_PRIVATE);
+    	SharedPreferences.Editor editor = prefs.edit();
+    	editor.putString("strTemp",strTemp);
+    	editor.putString("strResult",strResult);
+    	editor.putInt("operator", operator);
+    	editor.putString("strDisplay",
+    			((TextView)findViewById(R.id.displayPanel)).getText().toString());
+    	editor.commit();
+    }
+    public void readPreferences(){
+    	SharedPreferences prefs = getSharedPreferences("CalcPrefs", MODE_PRIVATE);
+    	strTemp = prefs.getString("strResult", "");
+    	strResult = prefs.getString("strResult", "0");
+    	this.operator = prefs.getInt("operator", 0);
+    	((TextView)findViewById(R.id.displayPanel)).setText(prefs.getString("strDisplay","0"));
+    }
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		writePreferences();
+	}
 
 }
