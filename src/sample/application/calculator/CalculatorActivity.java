@@ -7,6 +7,9 @@ package sample.application.calculator;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import android.text.ClipboardManager;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.R.string;
 import android.app.Activity;
@@ -21,12 +24,21 @@ import android.content.SharedPreferences;
 public class CalculatorActivity extends Activity {
 
 	public Integer sum;
-	public Integer num1 = 0;
+	public String num1 = new String();
+//	public Integer num1 = 0;
 	public Integer num2;
 	public String strTemp = "";
-	public String strResult = "0";
+	public String strResult;
 	public Integer operator = 0;
-	
+	private static Map<Integer, FunctionLogic> funcMap;
+
+	static{
+		CalculatorActivity.funcMap = new HashMap<Integer, FunctionLogic>();
+		CalculatorActivity.funcMap.put(R.id.keypadAC, new Ac());
+		CalculatorActivity.funcMap.put(R.id.keypadC, new C());
+		CalculatorActivity.funcMap.put(R.id.keypadBS, new Bs());
+		CalculatorActivity.funcMap.put(R.id.keypadCopy, new Copy());
+	}
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +105,7 @@ public class CalculatorActivity extends Activity {
     }
     
     public void functionKeyOnClick(View v){
+    	/*
     	switch(v.getId()){
     	case	R.id.keypadAC:
     		this.strTemp = "";
@@ -114,7 +127,10 @@ public class CalculatorActivity extends Activity {
     		cm.setText(((TextView)this.findViewById(R.id.displayPanel)).getText());
     		return;
     	}
-    	this.showNumber(this.strTemp);
+    	*/
+		FunctionLogic logic = funcMap.get(v.getId());
+		logic.doFunction(this);
+		
     }
     public void opratorKeyOnClick(View v){
     	
@@ -167,7 +183,8 @@ public class CalculatorActivity extends Activity {
     		return result.toString();
     	}
     }
-    
+  
+/*
     public void addKeyOnClick(View v) {
     	Button button = (Button)v;
 		Log.d("[buttonのtext]",button.getText().toString());
@@ -192,8 +209,9 @@ public class CalculatorActivity extends Activity {
 		
 		sInt = Integer.toString(num1 + num2);
 		tV.setText(sInt);
-		
-    }
+	}
+*/		
+
 
     public void writePreferences(){
     	SharedPreferences prefs = getSharedPreferences("CalcPrefs", MODE_PRIVATE);
