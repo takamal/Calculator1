@@ -1,7 +1,5 @@
 package sample.application.calculator;
 
-
-
 //import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
@@ -11,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.os.Bundle;
-import android.R.string;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
@@ -82,7 +79,7 @@ public class CalculatorActivity extends Activity {
     	this.showNumber(this.strTemp);
     	}	
 
-    private void showNumber(String strNum) {
+    public void showNumber(String strNum) {
     	
     	DecimalFormat form = new DecimalFormat("#,##0");
     	String strDecimal="";

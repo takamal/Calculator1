@@ -3,7 +3,7 @@ package sample.application.calculator;
 public class C extends AbstractLogic {
 
 	@Override
-	public void doFunction(CalculatorActivity ca) {
+	public void doSomething(CalculatorActivity ca){
 		ca.strTemp = "";
 
 //		ca.showNumber(ca.strTemp);

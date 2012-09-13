@@ -1,6 +1,7 @@
 package sample.application.calculator;
 
-
+import sample.application.calculator.CalculatorActivity;
+import sample.application.calculator.FunctionLogic;
 
 public abstract class AbstractLogic implements FunctionLogic{
 

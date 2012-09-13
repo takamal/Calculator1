@@ -3,7 +3,7 @@ package sample.application.calculator;
 public class Bs extends AbstractLogic {
 
 	@Override
-	public void doFunction(CalculatorActivity ca) {
+	public void doSomething(CalculatorActivity ca){
 		if(ca.strTemp.length() == 0){
 			return;
 		}else{
